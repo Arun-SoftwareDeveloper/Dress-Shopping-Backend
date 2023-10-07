@@ -109,7 +109,8 @@ const products = [
 ];
 
 // Connect to MongoDB
-const dburl = "mongodb://0.0.0.0:27017/Shopping_Site";
+const dburl =
+  "mongodb+srv://arunramasamy46:arunramasamy46@cluster0.ebwrhdc.mongodb.net/?retryWrites=true&w=majority";
 mongoose
   .connect(dburl, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
