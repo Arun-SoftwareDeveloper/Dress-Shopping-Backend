@@ -4,7 +4,8 @@ const path = require("path");
 const cors = require("cors"); // Import the cors package
 const app = express();
 const ProductRoutes = require("./Routes/ProductRoutes");
-const Products = require("./Products");
+// const Products = require("./Products");
+const ProductModel = require("./Models/ProductModel");
 
 // Enable CORS for all routes
 app.use(cors());
@@ -123,6 +124,20 @@ mongoose
 // Serve the React frontend (build) as static files
 app.use(express.static(path.join(__dirname, "client/build")));
 
+app.post("/api/insert-products", async (req, res) => {
+  try {
+    // Insert the products into the database
+    const insertedProducts = await ProductModel.insertMany(products);
+
+    res.json({
+      message: "Products inserted successfully",
+      data: insertedProducts,
+    });
+  } catch (error) {
+    console.error("Error inserting products:", error);
+    res.status(500).json({ error: "Failed to insert products" });
+  }
+});
 // API routes for the cart
 app.use("/api/cart", ProductRoutes);
 app.get("/api/products", (req, res) => {
